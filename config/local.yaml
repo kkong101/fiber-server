@@ -1,0 +1,7 @@
+
+
+database:
+  username: root
+  password: example
+  hostname: admin
+  port: 27017
