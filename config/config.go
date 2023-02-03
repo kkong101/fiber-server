@@ -6,9 +6,20 @@ import (
 )
 
 type Config struct {
-	Environment          string
-	DBSource             string
-	DBPort               uint
+	Environment string
+	Database    Database
+	Token       Token
+}
+
+type Database struct {
+	Driver   string
+	Username string
+	Password string
+	Source   string
+	Port     uint64
+}
+
+type Token struct {
 	AccessTokenDuration  time.Duration
 	RefreshTokenDuration time.Duration
 }
@@ -21,9 +32,12 @@ func LoadConfig(path string) (config Config, err error) {
 
 	viper.AutomaticEnv()
 
-	if err != viper.ReadInConfig() {
-		panic("FAIL TO LOAD CONFIG")
+	err = viper.ReadInConfig()
+	if err != nil {
+		return
 	}
 
-	return config, nil
+	err = viper.Unmarshal(&config)
+
+	return config, err
 }

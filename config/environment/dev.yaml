@@ -1,7 +1,8 @@
 
-
+environment: dev
 database:
-  username:
-  password:
-  hostname:
-  port:
+  driver: mysql
+  username: 123
+  password: 123
+  source: 123
+  port: 123

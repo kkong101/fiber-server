@@ -1,27 +1,18 @@
-version: "3.8"
-
-networks:
-  app:
-    driver: bridge
-
+version: "3.7"
 services:
-  mongo:
-    image: mongo
-    container_name: mongo
-    restart: on-failure:3
-    ports:
-      - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-
-  mongo-express:
-    image: mongo-express
-    container_name: mongo-express
+  db:
+    image: mysql:5.7
     restart: always
+    container_name: mysql-local
     ports:
-      - 8081:8081
+      - "3306:3306"
     environment:
-      ME_CONFIG_MONGODB_SERVER: mongo
-      ME_CONFIG_MONGODB_AUTH_USERNAME: root
-      ME_CONFIG_MONGODB_AUTH_PASSWORD: example
+      - MYSQL_DATABASE=db
+      - MYSQL_ROOT_PASSWORD=db
+      - TZ=Asia/Seoul
+
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - /Users/Shared/data/mysql-test:/var/lib/mysql

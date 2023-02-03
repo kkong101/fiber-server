@@ -1,8 +1,8 @@
 
-
-
+environment: prod
 database:
-  username:
-  password:
-  hostname:
-  port:
+  driver: mysql
+  username: 345
+  password: 345
+  source: 234
+  port: 456

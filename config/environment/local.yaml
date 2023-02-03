@@ -1,7 +1,8 @@
 
-
+environment: local
 database:
+  driver: mysql
   username: root
-  password: example
-  hostname: admin
+  password: root
+  source: root:db@tcp(127.0.0.1:3306)/db?parseTime=true
   port: 27017
