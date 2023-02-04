@@ -6,11 +6,20 @@ import (
 	"errors"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/gofiber/fiber/v2"
+	"github.com/kkong101/fiber-server/app/module/user/request"
 	"github.com/kkong101/fiber-server/config"
 	db "github.com/kkong101/fiber-server/db/sqlc"
+	"github.com/kkong101/fiber-server/utils"
 	"github.com/rs/zerolog/log"
 	"time"
 )
+
+type ErrorResponse struct {
+	FailedField string
+	Tag         string
+	Value       string
+}
 
 // main StartApplication
 func main() {
@@ -48,6 +57,31 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	app := fiber.New()
+
+	app.Post("/test", func(ctx *fiber.Ctx) error {
+
+		p := new(request.UserRequest)
+
+		if err := ctx.BodyParser(p); err != nil {
+			return err
+		}
+
+		err := utils.ParseAndValidate(ctx, p)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		fmt.Println(p.Phone)
+		return nil
+	})
+
+	app.Get("/test2", func(ctx *fiber.Ctx) error {
+		return nil
+	})
+
+	app.Listen("localhost:3001")
 
 	fmt.Println("RESULT")
 	fmt.Println(tt)
