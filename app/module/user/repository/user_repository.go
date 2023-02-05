@@ -12,21 +12,31 @@ type UserRepository struct {
 	ctx     context.Context
 }
 
+func NewUserRepository(db *sql.DB, queries *sqlc.Queries, ctx context.Context) *UserRepository {
+	return &UserRepository{
+		db:      db,
+		queries: queries,
+		ctx:     ctx,
+	}
+}
+
 func (u *UserRepository) createUser() error {
 
-	tx, err := u.db.Begin()
-	defer tx.Rollback()
+	//tx, err := u.db.Begin()
+	//defer tx.Rollback()
+	//
+	//if err != nil {
+	//	return err
+	//}
+	//
+	//qtx := u.queries.WithTx(tx)
+	//
+	//err = qtx.CreateUser(u.ctx)
+	//if err != nil {
+	//	return err
+	//}
+	//
+	//return tx.Commit()
 
-	if err != nil {
-		return err
-	}
-
-	qtx := u.queries.WithTx(tx)
-
-	err = qtx.CreateUser(u.ctx)
-	if err != nil {
-		return err
-	}
-
-	return tx.Commit()
+	return nil
 }

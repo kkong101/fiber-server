@@ -6,11 +6,12 @@ import (
 	"errors"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
+	"github.com/kkong101/fiber-server/app/dto"
 	"github.com/kkong101/fiber-server/app/module/user/request"
 	"github.com/kkong101/fiber-server/config"
 	db "github.com/kkong101/fiber-server/db/sqlc"
-	"github.com/kkong101/fiber-server/utils"
 	"github.com/rs/zerolog/log"
 	"time"
 )
@@ -58,17 +59,17 @@ func main() {
 		fmt.Println(err)
 	}
 
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		ErrorHandler: dto.ErrorHandler,
+		JSONEncoder:  json.Marshal,
+		JSONDecoder:  json.Unmarshal,
+	})
 
 	app.Post("/test", func(ctx *fiber.Ctx) error {
 
 		p := new(request.UserRequest)
 
-		if err := ctx.BodyParser(p); err != nil {
-			return err
-		}
-
-		err := utils.ParseAndValidate(ctx, p)
+		err := dto.ParseAndValidate(ctx, p)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -87,6 +88,4 @@ func main() {
 	fmt.Println(tt)
 	fmt.Println(tt.Birthday)
 	fmt.Println(tt.Password)
-
-	fmt.Println()
 }

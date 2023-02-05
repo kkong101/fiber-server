@@ -5,9 +5,11 @@ go 1.18
 require (
 	github.com/go-playground/validator/v10 v10.11.2
 	github.com/go-sql-driver/mysql v1.7.0
+	github.com/goccy/go-json v0.10.0
 	github.com/gofiber/fiber/v2 v2.39.0
 	github.com/rs/zerolog v1.28.0
 	github.com/spf13/viper v1.13.0
+	go.uber.org/fx v1.19.1
 	golang.org/x/crypto v0.5.0
 	honnef.co/go/tools v0.0.1-2020.1.4
 )
@@ -37,6 +39,10 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.40.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
+	go.uber.org/atomic v1.7.0 // indirect
+	go.uber.org/dig v1.16.0 // indirect
+	go.uber.org/multierr v1.6.0 // indirect
+	go.uber.org/zap v1.23.0 // indirect
 	golang.org/x/sys v0.4.0 // indirect
 	golang.org/x/text v0.6.0 // indirect
 	golang.org/x/tools v0.1.12 // indirect
