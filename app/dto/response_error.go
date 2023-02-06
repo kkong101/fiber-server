@@ -25,8 +25,6 @@ var ErrorHandler = func(c *fiber.Ctx, err error) error {
 		Code: "9999",
 	}
 
-	c.Format()
-
 	if e, ok := err.(validator.ValidationErrors); ok {
 		resp.Code = strconv.Itoa(fiber.StatusBadRequest)
 		resp.Message = e.Error() + "1111"

@@ -24,6 +24,6 @@ func (u *UserRouter) RegisterUserRoutes() {
 	userController := u.Controller.User
 
 	u.App.Route("/user", func(router fiber.Router) {
-		router.Get("/", userController)
+		router.Get("/test", userController.GetAllUser)
 	})
 }

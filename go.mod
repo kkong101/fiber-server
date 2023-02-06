@@ -7,6 +7,7 @@ require (
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/goccy/go-json v0.10.0
 	github.com/gofiber/fiber/v2 v2.39.0
+	github.com/pkg/errors v0.9.1
 	github.com/rs/zerolog v1.28.0
 	github.com/spf13/viper v1.13.0
 	go.uber.org/fx v1.19.1

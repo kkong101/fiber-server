@@ -9,10 +9,13 @@ import (
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/kkong101/fiber-server/app/dto"
+	err2 "github.com/kkong101/fiber-server/app/err"
 	"github.com/kkong101/fiber-server/app/module/user/request"
 	"github.com/kkong101/fiber-server/config"
 	db "github.com/kkong101/fiber-server/db/sqlc"
+	err1 "github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
+	"reflect"
 	"time"
 )
 
@@ -79,7 +82,22 @@ func main() {
 	})
 
 	app.Get("/test2", func(ctx *fiber.Ctx) error {
-		return nil
+		err = err2.NewCustomError("TEST123", err2.ValidationErrorSignatureInvalid)
+
+		err1.Wrap(err, "???")
+
+		fmt.Println("####")
+		fmt.Println(reflect.TypeOf(err))
+		if test, ok := err.(*err2.CustomError); ok {
+			switch test.Errors {
+			case err2.ValidationErrorSignatureInvalid:
+				fmt.Println("SUCCESS")
+
+			}
+		}
+		fmt.Println("####")
+
+		return err
 	})
 
 	app.Listen("localhost:3001")
